@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Ejercicio 1: saludo retrasado: crear una funcion que reciba un nombre y un callback, usar setTimeout para mostrar el saludo despues de 2 segundos y luego ejecutar el callback
+        function saludoRetrasado(nombre, callback) {
+            setTimeout(() => {
+                console.log(`Hola, ${nombre}!`);
+                callback();
+            }, 2000);
+        }
+        saludoRetrasado("Juan", () => {
+            console.log("Saludo mostrado, callback ejecutado.");
+        });
+
+        // Ejercicio 2: mensaje de orden: mostrar tres mensajes con distintos setTimeout pero lograr que salgan en orden usando callbacks animados
+        function mostrarMensaje(mensaje, tiempo, callback) {
+            setTimeout(() => {
+                console.log(mensaje);
+                if (callback) callback();
+            }, tiempo);
+        }
+        mostrarMensaje("Primer mensaje", 3000, () => {
+            mostrarMensaje("Segundo mensaje", 2000, () => {
+                mostrarMensaje("Tercer mensaje", 1000);
+            });
+        });
+
+        // Ejercicio 3: simular una descarga de archivo: Funcion descargar archivo callback que tarda 3 segundos y luego ejecute el callback mostarndo archivo descargado
+        function descargarArchivo(callback) {
+            console.log("Descargando archivo...");
+            setTimeout(() => {
+                console.log("Archivo descargado.");
+                callback();
+            }, 3000);
+        }
+        descargarArchivo(() => {
+            console.log("Proceso de descarga completado.");
+        });
+
+        //Ejercicio 4: procesar una lista despues de esperar: esperar 2 segundos y luego recorrer un arreglo con foreach para mostrar sus elementos
+        function procesarLista(lista) {
+            setTimeout(() => {
+                console.log("Procesando lista...");
+                lista.forEach(elemento => {
+                    console.log(elemento);
+                });
+            }, 2000);
+        }
+        const miLista = ["Elemento 1", "Elemento 2", "Elemento 3"];
+        procesarLista(miLista);
+
+        //Ejercicio 5: filtrar numeros pares despues de un rastreo: despues de 2 segundos usar filter para obtener los numros pares de un arreglo
+        function filtrarPares(numeros) {
+            setTimeout(() => {
+                const pares = numeros.filter(num => num % 2 === 0);
+                console.log("Números pares:", pares);
+            }, 2000);
+        }
+        const numeros = [1, 2, 3, 4, 5, 6];
+        filtrarPares(numeros);
+
+        //Ejercicio 6: duplicar valores con map despues de esperar: usar map dentro de un settimeout para duplicar los valores de un arreglo 
+        function duplicarValores(arr) {
+            setTimeout(() => {
+                const duplicados = arr.map(num => num * 2);
+                console.log("Valores duplicados:", duplicados);
+            }, 2000);
+        }
+        const valores = [1, 2, 3, 4, 5];
+        duplicarValores(valores);
+
+        //Ejercicio 7: sumar valores con reduce despues de espeerar: usar reduce dentro de un settimeout para sumar los numeros de un arreglo
+        function sumarValores(arr) {
+            setTimeout(() => {
+                const suma = arr.reduce((total, num) => total + num, 0);
+                console.log("Suma de valores:", suma);
+            }, 2000);
+        }
+        const numerosParaSumar = [1, 2, 3, 4, 5];
+        sumarValores(numerosParaSumar);
+
+        //Ejercicio 8: funcion que recibe arreglo y callback procesador: crear una funcion que reciba un arreglo y un callback el callback decidira que hacer con el arreglo
+        function procesarArreglo(arr, callback) {
+            setTimeout(() => {
+                console.log("Procesando arreglo...");
+                callback(arr);
+            }, 2000);
+        }
+        const miArreglo = [1, 2, 3, 4, 5];
+        procesarArreglo(miArreglo, (arr) => {
+            const cuadrados = arr.map(num => num * num);
+            console.log("Cuadrados de los valores:", cuadrados);
+        });
+
+        //Ejercicio 9: simular base de datos de usuarios: despues de 10 segundos retornar un arreglo de usuarios y en el callback mostrar sus nombres con foreach
+        function obtenerUsuarios(callback) {
+            setTimeout(() => {
+                const usuarios = [
+                    { id: 1, nombre: "Juan" },
+                    { id: 2, nombre: "María" },
+                    { id: 3, nombre: "Pedro" }
+                ];
+                callback(usuarios);
+            }, 10000);
+        }
+        obtenerUsuarios((usuarios) => {
+            console.log("Usuarios obtenidos:");
+            usuarios.forEach(usuario => {
+                console.log(usuario.nombre);
+            });
+        });
+
+        //Ejercicio 10: buscar usuario por nombre: usar filter dentro del calback para buscar un usuario especifico
+        function buscarUsuario(nombre, callback) {
+            obtenerUsuarios((usuarios) => {
+                const usuarioEncontrado = usuarios.filter(usuario => usuario.nombre === nombre);
+                callback(usuarioEncontrado);
+            });
+        }
+        buscarUsuario("María", (resultado) => {
+            if (resultado.length > 0) {
+                console.log("Usuario encontrado:", resultado[0].nombre);
+            } else {
+                console.log("Usuario no encontrado.");
+            }
+        });
+
+        //Ejecicio 11: transformar nombres a mayusculas: usar map dentro del callback para transformar los nombres
+        function transformarNombres(callback) {
+            obtenerUsuarios((usuarios) => {
+                const nombresMayusculas = usuarios.map(usuario => usuario.nombre.toUpperCase());
+                callback(nombresMayusculas);
+            });
+        }
+        transformarNombres((nombres) => {
+            console.log("Nombres en mayúsculas:", nombres);
+        });
+
+        //Ejercicio 12: calcular edad promedio: usar reduce dentro del callback para calcular promedio de edades
+        function calcularEdadPromedio(callback) {
+            setTimeout(() => {
+                const usuarios = [
+                    { id: 1, nombre: "Juan", edad: 25 },
+                    { id: 2, nombre: "María", edad: 30 },
+                    { id: 3, nombre: "Pedro", edad: 35 }
+                ];
+                const edadPromedio = usuarios.reduce((total, usuario) => total + usuario.edad, 0) / usuarios.length;
+                callback(edadPromedio);
+            }, 2000);
+        }
+        calcularEdadPromedio((promedio) => {
+            console.log("Edad promedio de los usuarios:", promedio);
+        });
+
+        //Ejercicio 13: cadena de procesos: simular: 1.carga de datos(2s), 2.filtrar datos(callback), 3.mostrar resultados(otro callback)
+        function cargarDatos(callback) {
+            setTimeout(() => {
+                const datos = [1, 2, 3, 4, 5, 6];
+                console.log("Datos cargados.");
+                callback(datos);
+            }, 2000);
+        }
+        function filtrarDatos(datos, callback) {
+            setTimeout(() => {
+                const datosFiltrados = datos.filter(num => num % 2 === 0);
+                console.log("Datos filtrados.");
+                callback(datosFiltrados);
+            }, 2000);
+        }
+        function mostrarResultados(datos) {
+            console.log("Resultados:");
+            datos.forEach(num => {
+                console.log(num);
+            });
+        }
+        cargarDatos((datos) => {
+            filtrarDatos(datos, (datosFiltrados) => {
+                mostrarResultados(datosFiltrados);
+            });
+        });
+
+        //Ejercicio 14: simular pedido de restaurante: funciones: 1. tomar pedido, 2. prepararpedido, 3. entregar pedido, encadenarlas con callbacks y settimeout
+        function tomarPedido(callback) {
+            setTimeout(() => {
+                console.log("Pedido tomado.");
+                callback();
+            }, 2000);
+        }
+        function prepararPedido(callback) {
+            setTimeout(() => {
+                console.log("Pedido preparado.");
+                callback();
+            }, 3000);
+        }
+        function entregarPedido() {
+            setTimeout(() => {
+                console.log("Pedido entregado.");
+            }, 1000);
+        }
+        tomarPedido(() => {
+            prepararPedido(() => {
+                entregarPedido();
+            });
+        });
+
+        //Ejercicio 15: contrar cuantos nunmeros son mayores a 10: usar filter y luego mostrar la cantidad, todo dentro de un callback
+        function contarMayoresA10(arr, callback) {
+            setTimeout(() => {
+                const mayoresA10 = arr.filter(num => num > 10);
+                console.log(`Cantidad de números mayores a 10: ${mayoresA10.length}`);
+                callback();
+            }, 2000);
+        }
+        const numerosParaContar = [5, 12, 8, 20, 3, 15];
+        contarMayoresA10(numerosParaContar, () => {
+            console.log("Conteo completado.");
+        });
+
+        //Ejercicio 16: convertir pedidos: dado un arreglo de precios, usar map para agregar iva dentro de un callback
+        function convertirPrecios(precios, callback) {
+            setTimeout(() => {
+                const preciosConIVA = precios.map(precio => precio * 1.21);
+                console.log("Precios con IVA:", preciosConIVA);
+                callback();
+            }, 2000);
+        }
+        const precios = [100, 200, 300];
+        convertirPrecios(precios, () => {
+            console.log("Conversión de precios completada.");
+        }); 
+
+        //Ejercicio 17: encontrar el numero mayor: usar reduce dentro de un callback para encontrar el mayor numero
+        function encontrarMayor(arr, callback) {
+            setTimeout(() => {
+                const mayor = arr.reduce((max, num) => (num > max ? num : max), arr[0]);
+                console.log("Número mayor:", mayor);
+                callback();
+            }, 2000);
+        }
+        const numerosParaMayor = [5, 12, 8, 20, 3, 15];
+        encontrarMayor(numerosParaMayor, () => {
+            console.log("Búsqueda del número mayor completada.");
+        });
+
+        //Ejeercicio 18: ejecutar una operacion matematica pasada como callback: la funcion principal recibe dos numeros y un callback (sumar, restrar, multiplicar)
+        function ejecutarOperacion(num1, num2, operacion, callback) {
+            setTimeout(() => {
+                const resultado = operacion(num1, num2);
+                console.log("Resultado de la operación:", resultado);
+                callback();
+            }, 2000);
+        }
+        const sumar = (a, b) => a + b;
+        const restar = (a, b) => a - b;
+        const multiplicar = (a, b) => a * b;
+        ejecutarOperacion(5, 3, sumar, () => {
+            console.log("Operación de suma completada.");
+        });
+
+        //Ejercicio 19: simular verificacion de contraseña: esperar 2s y luego validar la contraseña en un callback
+        function verificarContraseña(contraseña, callback) {
+            setTimeout(() => {
+                const contraseñaCorrecta = "secreto123";
+                if (contraseña === contraseñaCorrecta) {
+                    console.log("Contraseña correcta.");
+                    callback(true);
+                } else {
+                    console.log("Contraseña incorrecta.");
+                    callback(false);
+                }
+            }, 2000);
+        }
+        verificarContraseña("secreto123", (esValida) => {
+            if (esValida) {
+                console.log("Acceso concedido.");
+            } else {
+                console.log("Acceso denegado.");
+            }
+        });
+
+        //Ejercicio 20: mini juego completo: simular: 1. esperar datos, 2. filtrar datos activos, 3. transformar nombres, 4. calcular cantidad total, todo encadenado con callbacks
+        function esperarDatos(callback) {
+            setTimeout(() => {
+                const datos = [
+                    { id: 1, nombre: "Jugador1", activo: true },
+                    { id: 2, nombre: "Jugador2", activo: false },
+                    { id: 3, nombre: "Jugador3", activo: true }
+                ];
+                console.log("Datos recibidos.");
+                callback(datos);
+            }, 2000);
+        }
+        function filtrarActivos(datos, callback) {
+            setTimeout(() => {
+                const activos = datos.filter(jugador => jugador.activo);
+                console.log("Datos filtrados (activos).");
+                callback(activos);
+            }, 2000);
+        }
+        function transformarNombres(datos, callback) {
+            setTimeout(() => {
+                const nombresTransformados = datos.map(jugador => jugador.nombre.toUpperCase());
+                console.log("Nombres transformados.");
+                callback(nombresTransformados);
+            }, 2000);
+        }
+        function calcularCantidad(datos) {
+            console.log("Cantidad total de jugadores activos:", datos.length);
+        }
+        esperarDatos((datos) => {
+            filtrarActivos(datos, (activos) => {
+                transformarNombres(activos, (nombres) => {
+                    calcularCantidad(nombres);
+                });
+            });
+        });
+
+        
+        
+    </script>
+</body>
+</html>
